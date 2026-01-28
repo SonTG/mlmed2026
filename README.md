@@ -1,6 +1,6 @@
 USTH Machine Learning in Medicine 2026
 ==================================
 
-* Your name here
-* Your ID here
-* Your team ID here
+* Đặng Đình Hòa
+* 23BI14169
+* GROUD ID: 7

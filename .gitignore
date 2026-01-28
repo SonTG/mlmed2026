@@ -1,0 +1,9 @@
+Labwork1/Dataset/*.zip
+Labwork1/Dataset/*.csv
+Labwork1/Practice/*.h5
+Labwork1/Report/*.aux
+Labwork1/Report/*.fdb_latexmk
+Labwork1/Report/*.fls
+Labwork1/Report/*.log
+Labwork1/Report/*.out
+Labwork1/Report/*.synctex.gz
