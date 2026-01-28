@@ -1,0 +1,117 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+% --- Metadata ---
+\title{\textbf{Report: ECG Heartbeat Classification}}
+\author{Mai Ngọc Linh - 23BI14255}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage 
+
+\section{Introduction}
+Heart disease is a major global health issue. Doctors use Electrocardiograms (ECG) to check the heart's rhythm, but analyzing hours of data is difficult and slow. This project uses a 1D Convolutional Neural Network (CNN) to automatically identify different types of heartbeats. This tool helps doctors process data faster and more accurately.
+
+\section{Dataset Summary}
+We used the MIT-BIH Arrhythmia Database, a standard collection of ECG recordings.
+
+\subsection{Data Details}
+\begin{itemize}
+    \item \textbf{Structure:} Each sample is a sequence of 187 signal points.
+    \item \textbf{Label:} Each sample is assigned to one of five categories (0 to 4).
+    \item \textbf{Classes:} Most beats are "Normal," but the dataset also includes various types of "Arrhythmias" (irregular beats).
+\end{itemize}
+
+
+
+\subsection{Class Categories}
+\begin{table}[h]
+\centering
+\begin{tabular}{cll}
+\toprule
+\textbf{Label} & \textbf{Category} & \textbf{Simplified Meaning} \\ \midrule
+0 & Normal & Healthy heart rhythm \\
+1 & Supraventricular & Irregularity above the ventricles \\
+2 & Ventricular & Irregularity in the lower chambers \\
+3 & Fusion & Mix of normal and irregular beats \\
+4 & Unknown & Unclassifiable or paced beats \\ \bottomrule
+\end{tabular}
+\caption{The five types of heartbeats we classified.}
+\end{table}
+
+\section{How the Model Works}
+We built a Deep Learning model that "scans" the heartbeat signal to find patterns.
+
+\subsection{The 1D CNN Architecture}
+Instead of looking at just the numbers, the 1D CNN looks at the "shape" of the wave:
+\begin{enumerate}
+    \item \textbf{Convolution Layers:} These act like filters that recognize specific parts of the wave (like the peaks).
+    \item \textbf{Pooling Layers:} These simplify the data by keeping only the most important features.
+    \item \textbf{Dropout (0.5):} We turned off 50\% of the neurons during training. This forces the model to be smarter and prevents it from simply "memorizing" the answers.
+\end{enumerate}
+
+\section{Experimental Results}
+
+
+\subsection{Performance Table}
+The model achieved an overall accuracy of **97\%**.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Class (AAMI Category)} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support} \\ \midrule
+Normal (N) & 0.97 & 0.99 & 0.98 & 3624 \\
+Supraventricular (S) & 0.94 & 0.58 & 0.72 & 111 \\
+Ventricular (V) & 0.86 & 0.88 & 0.87 & 290 \\
+Fusion (F) & 0.79 & 0.34 & 0.48 & 32 \\
+Unknown (Q) & 0.99 & 0.94 & 0.96 & 322 \\ \midrule
+\textbf{Macro Average} & 0.91 & 0.75 & 0.80 & 4379 \\
+\textbf{Weighted Average} & 0.96 & 0.97 & 0.96 & 4379 \\ \bottomrule
+\end{tabular}
+\caption{Detailed performance metrics for the 1D CNN model on test data.}
+\end{table}
+
+
+\subsection{Training Accuracy & Loss}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{tải xuống.png}
+    \caption{Accuracy and Loss Evolution}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\subsection{Confusion Matrix}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{tải xuống (1).png}
+    \caption{ECG Confusion Matrix}
+    \label{fig:placeholder}
+\end{figure}
+
+\subsection{Main Findings}
+\begin{itemize}
+    \item \textbf{Success:} The model is excellent at identifying Normal and Unknown beats.
+    \item \textbf{Challenge:} It is harder for the model to find "Fusion" beats because there are very few examples of them in the data.
+    \item \textbf{Optimization:} We found that using a Dropout rate of 0.5 helped the model perform much better on new data.
+\end{itemize}
+
+\section{Conclusion}
+The 1D CNN is a powerful tool for reading ECG signals. It is very accurate at spotting healthy beats and most common arrhythmias. Future improvements will focus on collecting more data for the rare heartbeat types to make the model even more reliable for clinical use.
+
+\end{document}
