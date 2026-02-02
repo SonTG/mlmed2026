@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[conference]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
@@ -26,9 +26,9 @@ This report presents the results of my study on ECG heartbeat categorization tak
 
 The data used in this study is the MIT-BIH Arrhythmia Database. The data consists of 5 types of heartbeats: Normal, Supraventricular, Ventricular, Fusion and Unknown, which are encoded to 0, 1, 2, 3 and 4 respectively. Each data contains 187 values of the heartbeat signal.
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{figure1_class_distribution_before.png}
+    \includegraphics[width=0.8\columnwidth]{figure1_class_distribution_before.png}
     \caption{Frequency of each class in the dataset}
     \label{fig:class_dist_before}
 \end{figure}
@@ -37,18 +37,18 @@ As we can see from the histogram at figure \ref{fig:class_dist_before}, the trai
 
 To avoid overfitting, the up-sample technique to balance the dataset was used. When divided the total number of files in the training dataset by 5, I obtained about 17510. So I balanced the dataset by resampling each class to have around 17500 samples in each class.
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{figure2_class_distribution_after.png}
+    \includegraphics[width=0.8\columnwidth]{figure2_class_distribution_after.png}
     \caption{Frequency of each class in the dataset after balancing}
     \label{fig:class_dist_after}
 \end{figure}
 
 Besides, I also split the test dataset in Kaggle into 2 parts: 50\% for validation and 50\% for testing. The distributions of 2 these datasets can be seen in the figure \ref{fig:valid_test_dist}.
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.9\textwidth]{figure3_valid_test_distribution.png}
+    \includegraphics[width=0.9\columnwidth]{figure3_valid_test_distribution.png}
     \caption{Frequency of each class in the valid and test dataset}
     \label{fig:valid_test_dist}
 \end{figure}
@@ -79,109 +79,64 @@ As can be seen from the plots of loss for all models, the train loss of all mode
     \centering
     \caption{Loss track of the Deep Learning models}
     \label{tab:loss_track}
-    \includegraphics[width=\textwidth]{table1_loss_track.png}
+    \includegraphics[width=\columnwidth]{table1_loss_track.png}
 \end{table}
 
 \subsection{Confusion Matrices of all Models}
 
 For the results recorded in the testing dataset, CNN with Residual Connection also shows the best prediction for unseen data.
 
-\begin{table}[H]
+\begin{table}[ht]
     \centering
     \caption{Confusion Matrices of all Models}
     \label{tab:confusion_matrices}
-    \includegraphics[width=\textwidth]{table2_confusion_matrices.png}
+    \includegraphics[width=\columnwidth]{table2_confusion_matrices.png}
 \end{table}
 
 \section{Comparison with State-of-the-Art}
 
-To evaluate the performance of our models, we compare our results with the work of Kachuee et al. \cite{kachuee2018ecg}, which is a widely cited benchmark study on ECG heartbeat classification using the same MIT-BIH Arrhythmia Database.
+We benchmark our models against Kachuee et al. \cite{kachuee2018ecg}, a widely cited study on ECG heartbeat classification using the MIT-BIH Arrhythmia Database.
 
 \subsection{Overview of Kachuee et al.'s Method}
 
-Kachuee et al. \cite{kachuee2018ecg} proposed a deep convolutional neural network architecture for ECG heartbeat classification that achieves state-of-the-art performance. Their key contributions include:
-
+Kachuee et al. proposed a deep CNN with 5 residual blocks, batch normalization, pooling, and data augmentation. Their model includes:
 \begin{itemize}
-    \item A deep CNN architecture with 5 residual blocks, each containing two convolutional layers with skip connections
-    \item Use of batch normalization and pooling layers to improve feature extraction
-    \item Data augmentation techniques to balance the dataset
-    \item Transfer learning approach to apply learned representations to myocardial infarction (MI) classification
-\end{itemize}
-
-Their architecture consists of:
-\begin{enumerate}
-    \item An initial Conv1D layer with kernel size 7
+    \item Initial Conv1D layer (kernel size 7)
     \item Five residual blocks with skip connections
     \item Two fully-connected layers (32 neurons each)
-    \item A softmax output layer for 5-class classification
-\end{enumerate}
-
-The model was trained following AAMI EC57 standards, which maps the original beat annotations to five categories: Normal (N), Supraventricular (S), Ventricular (V), Fusion (F), and Unknown (Q).
+    \item Softmax output for 5-class classification (N, S, V, F, Q)
+\end{itemize}
+They also explored transfer learning for myocardial infarction detection.
 
 \subsection{Performance Comparison}
 
-Table \ref{tab:comparison} presents a comparison between our models and the results reported by Kachuee et al.
+Table \ref{tab:comparison} compares our results with Kachuee et al.
 
 \begin{table}[H]
     \centering
-    \caption{Comparison of classification accuracies with Kachuee et al. \cite{kachuee2018ecg}}
+    \caption{Classification accuracies compared with Kachuee et al. \cite{kachuee2018ecg}}
     \label{tab:comparison}
     \begin{tabular}{lc}
         \toprule
-        \textbf{Model} & \textbf{Test Accuracy (\%)} \\
+        \textbf{Model} & \textbf{Accuracy (\%)} \\
         \midrule
-        Kachuee et al. (2018) - ResNet CNN & 93.4 \\
-        \midrule
+        Kachuee et al. (2018) & 93.4 \\
         Our Random Forest & 96.26 \\
         Our Simple CNN & 97.40 \\
-        Our CNN with Residual Connection & 97.35 \\
+        Our ResNet CNN & 97.35 \\
         \bottomrule
     \end{tabular}
-    \vspace{0.3cm}
-    
-    \textit{Note: Accuracy values for our models should be filled in from experimental results}
 \end{table}
 
-\subsection{Key Differences and Insights}
-
-\subsubsection{Architectural Differences}
-
-While our CNN with Residual Connection was inspired by Kachuee et al.'s architecture, there are several differences:
+\subsection{Key Insights}
 
 \begin{itemize}
-    \item \textbf{Network Depth}: Kachuee et al. use exactly 5 residual blocks, while our implementation may vary in the number and configuration of residual blocks
-    \item \textbf{Data Preprocessing}: Both approaches use up-sampling to balance the dataset, though the exact implementation may differ
-    \item \textbf{Training Strategy}: Our study implements the models from scratch, while Kachuee et al. also explore transfer learning capabilities
+    \item \textbf{Architecture}: Our ResNet CNN is inspired by Kachuee et al. but varies in depth and configuration.
+    \item \textbf{Training}: We train from scratch, while Kachuee et al. also apply transfer learning.
+    \item \textbf{Performance}: Residual connections consistently improve accuracy; deep learning outperforms Random Forest baselines.
+    \item \textbf{Class Imbalance}: Both studies address imbalance via augmentation.
 \end{itemize}
 
-\subsubsection{Advantages of the Benchmark Method}
-
-Kachuee et al.'s approach demonstrates several strengths:
-
-\begin{enumerate}
-    \item \textbf{Skip Connections}: The residual connections effectively address the vanishing gradient problem, enabling deeper networks
-    \item \textbf{Transferability}: The learned representations can be transferred to other cardiac classification tasks (e.g., MI detection with 95.9\% accuracy)
-    \item \textbf{Robust Feature Extraction}: The use of multiple residual blocks allows the network to learn hierarchical features at different levels of abstraction
-\end{enumerate}
-
-\subsubsection{Our Comparative Contributions}
-
-Our study contributes to the field by:
-
-\begin{enumerate}
-    \item \textbf{Model Diversity}: We evaluate and compare 5 different architectures (Random Forest, Simple CNN, ResNet CNN), providing insights into which approaches work best for ECG signal classification
-    \item \textbf{Baseline Comparison}: Including Random Forest provides a non-deep-learning baseline to assess whether complex neural architectures are necessary
-\end{enumerate}
-
-\subsection{Discussion}
-
-The results from Kachuee et al. set a strong benchmark at 93.4\% accuracy. Our CNN with Residual Connection, which follows a similar architectural philosophy, aims to reproduce these results. The comparison reveals:
-
-\begin{itemize}
-    \item \textbf{Residual Connections are Critical}: Both our results and Kachuee et al.'s findings confirm that residual connections significantly improve model performance by mitigating overfitting
-    \item \textbf{Deep Learning Advantage}: Deep learning models consistently outperform traditional machine learning approaches like Random Forest for this task
-    \item \textbf{Class Imbalance Matters}: Both studies recognize and address the severe class imbalance in the MIT-BIH dataset through data augmentation
-\end{itemize}
 
 \section{Conclusion}
 
