@@ -1,0 +1,263 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{array, booktabs, multirow, longtable}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage[table]{xcolor}
+\usepackage{placeins}
+\usepackage{float}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage[activate={true,nocompat},final,tracking=true,kerning=true,spacing=true]{microtype}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usepackage{inconsolata}
+
+\definecolor{background}{RGB}{250,250,250}
+\definecolor{keyword}{RGB}{170,0,255}
+\definecolor{importcolor}{RGB}{147,0,255}
+\definecolor{string}{RGB}{163,21,21}
+\definecolor{comment}{RGB}{0,128,0}
+\definecolor{numbercolor}{RGB}{0,0,255}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\raggedright}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\raggedright}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\raggedright}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.3em}
+\linespread{1.0}
+
+\setlist[itemize]{
+  label=-,
+  leftmargin=1.5em,
+  itemindent=0em,
+  itemsep=0.2em,
+  parsep=0.1em,
+  topsep=0.3em,
+  partopsep=0.1em
+}
+
+\setlist[enumerate]{
+  leftmargin=1.5em,
+  itemindent=0em,
+  itemsep=0.2em,
+  parsep=0.1em,
+  topsep=0.3em,
+  partopsep=0.1em
+}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{background},
+    basicstyle=\ttfamily\small,
+    frame=single,
+    showstringspaces=false,
+    numbers=none,
+    tabsize=4,
+    breaklines=true,
+    keywordstyle=\color{importcolor}\bfseries,
+    commentstyle=\color{comment},
+    stringstyle=\color{string},
+    emph={from,import,as,for,while,if,else,elif,return,def,class,print},
+    emphstyle=\color{keyword}\bfseries,
+    moredelim=[s][\color{string}]{'}{'},
+    moredelim=[s][\color{string}]{"}{"},
+}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showlines=false,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle, showlines=false}
+
+\begin{document}
+
+\onecolumn
+
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture, overlay]
+    \draw[line width=2pt]
+        ($(current page.south west) + (0.5in, 0.5in)$)
+        rectangle
+        ($(current page.north east) - (0.5in, 0.5in)$);
+\end{tikzpicture}
+
+\begin{center}
+
+    \makebox[\textwidth][s]{\large \textbf{UNIVERSITY OF SCIENCE AND TECHNOLOGY OF HANOI}} \\[0.75cm]
+    \makebox[\textwidth][s]{\small \textbf{DEPARTMENT OF INFORMATION AND COMMUNICATION TECHNOLOGY}}
+    \vspace{0.5cm}
+
+    \includegraphics[width=0.65\textwidth]{image/usth.png}
+    \vspace{0.5cm}
+
+    {\LARGE \textbf{Labwork 3}}\\[0.5cm]
+    \vspace{0.5cm}
+
+    \large
+    \begin{tabular}{l c r}
+    \\
+    \textbf{Dang Dinh Hoa} & \textbf{23BI14169} & \\
+    \end{tabular}
+    \vspace{0.5cm}
+
+    {\Large \textbf{Title:}}\\[0.5cm]
+    {\large \textbf{Segmentation of COVID-19 Infection on Chest X-ray Images (COVID-QU-Ex)}}\\[0.5cm]
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+    \textit{Hanoi, 2026}
+\end{center}
+
+\newpage
+\thispagestyle{plain}
+\begin{multicols}{2}
+
+\section{Introduction}
+
+The goal of this labwork is to segment COVID-19 infection areas on chest X-rays. A U-Net style network takes a gray X-ray as input and outputs a binary mask (infection vs.\ background). The COVID-QU-Ex dataset provides the images and masks. Pixel accuracy, IoU, and Dice are used to evaluate; the report also compares with other methods and tries a few different settings to see what helps.
+
+\section{Dataset Description}
+
+\subsection{Dataset Overview}
+
+COVID-QU-Ex comes from Qatar University and is described in ``COVID-19 Infection Localization and Severity Grading from Chest X-ray Images'' (Computers in Biology and Medicine, 2021). The full dataset has 33,920 chest X-rays: 11,956 COVID-19, 11,263 non-COVID infections, and 10,701 normal.
+
+For infection segmentation only the part with infection masks is used: 2,913 COVID-19 images with masks, plus 1,456 normal and 1,457 non-COVID (these have lung masks but no infection masks). Images are grayscale and of varying size; each mask is binary---white where infection is, black elsewhere.
+
+\subsection{File Structure}
+
+\begin{itemize}
+\item \texttt{Train/COVID-19/} --- images and infection masks for COVID-19 training
+\item \texttt{Train/Non-COVID/} --- images and infection masks for non-COVID training
+\item \texttt{Train/Normal/} --- normal images (no infection masks)
+\item \texttt{Val/} --- same structure as Train, for checking
+\item \texttt{Test/} --- same structure as Train, for final test
+\end{itemize}
+
+Each class folder has three subfolders: \texttt{images/} (X-ray images), \texttt{infection masks/} (binary masks), and \texttt{lung masks/} (not used here).
+
+\subsection{Target Variable and Preprocessing}
+
+The task is to predict a binary mask (1 for infection, 0 for background). Only samples that have both an image and an infection mask file are kept. Figure~\ref{fig:dataset_samples} shows a few examples.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{image/dataset_samples.png}
+\caption{Sample X-ray images with their infection masks (overlay).}
+\label{fig:dataset_samples}
+\end{figure}
+
+\section{Methodology}
+
+\subsection{Data Preprocessing}
+
+\subsubsection{Train--validation split}
+The dataset comes with Train, Val, and Test. Train and Val are used to build and check the model; Test is left for later. Train has about 3,728 image--mask pairs; Val has about 932.
+
+\subsubsection{Image loading and normalization}
+Each image and its mask are loaded from the corresponding folders. Images are converted to gray, resized to 256$\times$256 (so every input has the same size), and scaled to 0--1. Masks are resized to 256$\times$256 and binarized (pixels above 127 become 1, else 0). The pipeline produces pairs of 256$\times$256$\times$1 arrays.
+
+\subsection{Model Architecture}
+
+The model is a small U-Net: encoder--decoder with skip connections. Input is a 256$\times$256 gray image. The encoder has three blocks (32, 64, 128 filters, two Conv2D + ReLU each, then MaxPool). The bottleneck has 256 filters. The decoder upsamples and concatenates with the encoder features at each level, then two Conv2D layers. The last layer is a single Conv2D with sigmoid to produce the mask. Training uses Adam, binary cross-entropy loss, and pixel accuracy as the main metric.
+
+\subsection{Training Configuration}
+
+Training runs for 30 passes over the data, 8 images per step, Adam with learning rate 1e-4. Loss is binary cross-entropy.
+
+\subsection{Changing the Settings}
+
+Several choices were varied to see the effect: image size 192 vs.\ 256 (256 kept for more detail), batch size 4 vs.\ 8 vs.\ 16 (8 worked well on GPU), number of passes 20 vs.\ 30 vs.\ 50 (30 was a reasonable trade-off), and learning rate 1e-3 vs.\ 1e-4 (1e-4 gave better behavior). No full grid search was done---just enough to get a sense. The numbers reported below use 256$\times$256, batch 8, 30 passes, lr 1e-4. Figure~\ref{fig:training_curves} plots loss and accuracy over time.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{image/training_curves.png}
+\caption{Training and check-set loss and pixel accuracy over training passes.}
+\label{fig:training_curves}
+\end{figure}
+
+\section{Results}
+
+\subsection{Validation Metrics}
+
+On the validation set (about 932 samples) the model reaches pixel accuracy around 0.95--0.97, IoU around 0.60--0.75, and Dice around 0.70--0.85. So it picks up infection regions fairly well but often misses small or faint areas.
+
+\subsection{Comparison with Other Methods}
+
+Published work on COVID-QU-Ex reports IoU around 0.83--0.88 and Dice around 0.88--0.92 for infection segmentation. Those methods typically use deeper U-Nets (e.g.\ with ResNet backbone), stronger data augmentation, and sometimes post-processing.
+
+The model in this report is a plain U-Net with almost no augmentation (only resize and normalize) and no post-processing. Its IoU (0.60--0.75) is below the best numbers. The gap comes mainly from a smaller network, possible loss of detail at 256$\times$256, limited augmentation, and no cleanup of the predicted mask. Improving would mean trying a deeper or pre-trained backbone, higher resolution, more augmentation, and post-processing as in the literature.
+
+\subsection{Sample Predictions}
+
+Figure~\ref{fig:sample_predictions} shows six validation examples: original X-ray, ground-truth mask, and predicted mask overlaid on the image. The plots make it easier to see where the model errs---for example on small patches or near lung borders.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{image/sample_predictions.png}
+\caption{Sample predictions: original X-ray (left), true infection mask (middle), predicted mask overlay (right).}
+\label{fig:sample_predictions}
+\end{figure}
+
+\section{Conclusion}
+
+The report covered the COVID-QU-Ex infection segmentation data and a small U-Net that predicts infection masks from 256$\times$256 gray X-rays. The pipeline loads image--mask pairs, resizes and normalizes them, and trains with binary cross-entropy; pixel accuracy and IoU are monitored. A few hyperparameters were varied (image size, batch size, epochs, learning rate). Final validation pixel accuracy is around 0.95--0.97 and IoU around 0.60--0.75, below the 0.83--0.88 IoU of the best methods. The difference is explained by model size, resolution, lack of augmentation, and no post-processing. Possible next steps are a larger or pre-trained encoder, higher resolution, augmentation, and post-processing as in existing work.
+
+\end{multicols}
+
+\end{document}

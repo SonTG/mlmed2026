@@ -1,0 +1,266 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{array, booktabs, multirow, longtable}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage[table]{xcolor}
+\usepackage{placeins}
+\usepackage{float}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage[activate={true,nocompat},final,tracking=true,kerning=true,spacing=true]{microtype}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usepackage{inconsolata}
+
+\definecolor{background}{RGB}{250,250,250}
+\definecolor{keyword}{RGB}{170,0,255}
+\definecolor{importcolor}{RGB}{147,0,255}
+\definecolor{string}{RGB}{163,21,21}
+\definecolor{comment}{RGB}{0,128,0}
+\definecolor{numbercolor}{RGB}{0,0,255}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\raggedright}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\raggedright}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\raggedright}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.3em}
+\linespread{1.0}
+
+\setlist[itemize]{
+  label=-,
+  leftmargin=1.5em,
+  itemindent=0em,
+  itemsep=0.2em,
+  parsep=0.1em,
+  topsep=0.3em,
+  partopsep=0.1em
+}
+
+\setlist[enumerate]{
+  leftmargin=1.5em,
+  itemindent=0em,
+  itemsep=0.2em,
+  parsep=0.1em,
+  topsep=0.3em,
+  partopsep=0.1em
+}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{background},
+    basicstyle=\ttfamily\small,
+    frame=single,
+    showstringspaces=false,
+    numbers=none,
+    tabsize=4,
+    breaklines=true,
+    keywordstyle=\color{importcolor}\bfseries,
+    commentstyle=\color{comment},
+    stringstyle=\color{string},
+    emph={from,import,as,for,while,if,else,elif,return,def,class,print},
+    emphstyle=\color{keyword}\bfseries,
+    moredelim=[s][\color{string}]{'}{'},
+    moredelim=[s][\color{string}]{"}{"},
+}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showlines=false,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle, showlines=false}
+
+\begin{document}
+
+\onecolumn
+
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture, overlay]
+    \draw[line width=2pt]
+        ($(current page.south west) + (0.5in, 0.5in)$)
+        rectangle
+        ($(current page.north east) - (0.5in, 0.5in)$);
+\end{tikzpicture}
+
+\begin{center}
+
+    \makebox[\textwidth][s]{\large \textbf{UNIVERSITY OF SCIENCE AND TECHNOLOGY OF HANOI}} \\[0.75cm]
+    \makebox[\textwidth][s]{\small \textbf{DEPARTMENT OF INFORMATION AND COMMUNICATION TECHNOLOGY}}
+    \vspace{0.5cm}
+
+    \includegraphics[width=0.65\textwidth]{image/usth.png}
+    \vspace{0.5cm}
+
+    {\LARGE \textbf{Labwork 2}}\\[0.5cm]
+    \vspace{0.5cm}
+
+    \large
+    \begin{tabular}{l c r}
+    \\
+    \textbf{Dang Dinh Hoa} & \textbf{23BI14169} & \\
+    \end{tabular}
+    \vspace{0.5cm}
+
+    {\Large \textbf{Title:}}\\[0.5cm]
+    {\large \textbf{Measurement of Fetal Head Circumference using Ultrasound (HC18)}}\\[0.5cm]
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+    \textit{Hanoi, 2026}
+\end{center}
+
+\newpage
+\thispagestyle{plain}
+\begin{multicols}{2}
+
+\section{Introduction}
+
+This labwork builds a model that predicts fetal head circumference (HC) in mm from 2D ultrasound images. The HC18 dataset is used with a small neural network: input is a gray image, output is one number (HC in mm). The main measure of error is MAE (average absolute error in mm); results are compared to the HC18 leaderboard and a few settings are changed to see what works better.
+
+\section{Dataset Description}
+
+\subsection{Dataset Overview}
+
+The HC18 dataset from Zenodo is used; it comes from van den Heuvel et al.\ at Radboud University Medical Center and is described in ``Automated measurement of fetal head circumference using 2D ultrasound images'' (PLoS ONE, 2018).
+
+There are 1,334 2D ultrasound images of the fetal head: 999 for training (with HC in mm) and 335 for test (no answers given, for leaderboard). Images are 800$\times$540. Each image has a scale (mm per pixel) between about 0.05 and 0.33~mm, so size varies. HC in the training set goes from about 44~mm to 346~mm.
+
+\subsection{File Structure}
+
+\begin{itemize}
+\item \texttt{training\_set\_pixel\_size\_and\_HC.csv} --- 999 rows (filename, pixel size, HC)
+\item \texttt{test\_set\_pixel\_size.csv} --- 335 rows (filename, pixel size only)
+\item \texttt{training\_set/training\_set/} --- \texttt{*\_HC.png} images (extra mask images not used)
+\item \texttt{test\_set/test\_set/} --- test images
+\end{itemize}
+
+\subsection{Target Variable and Preprocessing}
+
+The goal is to predict head circumference in mm (a number). No missing values in the CSV. Rows with missing image files were removed so every sample has a valid image. Figure~\ref{fig:hc_dist} shows how HC and pixel size are spread in the training set.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{image/hc_distribution.png}
+\caption{Distribution of head circumference (mm) and pixel size (mm) in the training set.}
+\label{fig:hc_dist}
+\end{figure}
+
+\section{Methodology}
+
+\subsection{Data Preprocessing}
+
+\subsubsection{Train--validation split}
+The test set is kept for later; only the 999 training samples are used. They are split 80\% for training, 20\% for checking, with a fixed random seed so results can be repeated.
+
+\subsubsection{Image loading and normalization}
+For each row the image is loaded from the folder using the filename in the CSV (only \texttt{*\_HC.png}, not the mask images). Images are turned to gray, resized to 128$\times$128 so all inputs have the same size, and scaled to 0--1 (divide by 255). Targets are the HC column (numbers in mm).
+
+\subsection{Model Architecture}
+
+A small convolutional network is used: gray image 128$\times$128 as input; three convolutional layers (32, 64, 128 filters) with pooling; then two dense layers (64 units, then 1 unit) with dropout to reduce overfitting. The model is trained with the Adam optimizer; the loss is MSE and the main number to watch is MAE (error in mm).
+
+\subsection{Training Configuration}
+
+Training uses 32 images per step, 20 passes over the data, Adam optimizer, MSE as loss, and MAE as the main measure.
+\subsection{Changing the Settings}
+
+A few settings were tried to see their effect on the error: image size 128 vs.\ 64 (128 kept as a balance); batch size 16, 32, 64 (32 was a good choice); 20 vs.\ 30 vs.\ 50 passes (error often stopped improving after 15--20, so 20 was chosen); dropout 0.2, 0.3, 0.5 (0.3 worked well, 0.5 sometimes did not learn enough). Not all combinations were tried---only enough to see what matters. The results below use 128$\times$128, batch 32, 20 passes, dropout 0.3. Figure~\ref{fig:training_curves} shows loss and MAE over the training passes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{image/training_curves.png}
+\caption{Training and check-set loss (MSE) and error in mm (MAE) over training passes.}
+\label{fig:training_curves}
+\end{figure}
+
+\section{Results}
+
+\subsection{Validation Metrics}
+
+On the 20\% set used for checking (about 200 samples) the model gets an average error (MAE) around 44--48~mm, and R² between 0.3 and 0.5 depending on the run---so predictions follow the truth somewhat but there is clear room to do better.
+
+\subsection{Comparison with HC18 Leaderboard}
+
+The HC18 leaderboard uses the same 335 test images. The best methods get an average error of only a few mm (e.g.\ $-0.11 \pm 2.67$~mm in one approach that fits an ellipse). They often use outline detection plus ellipse fitting, or deeper networks, with more data variation and tuning.
+
+The model here is simple: 999 images, almost no extra data variation (just resize and scale). The error is around 44--48~mm, so much higher than the best. The gap is likely because: (1) the network is small; (2) 128$\times$128 loses detail compared to 800$\times$540; (3) no extra data variation; (4) the model predicts HC directly instead of fitting an ellipse. To get closer one could try a deeper or pre-trained network, higher image resolution, more data variation, and methods that fit an ellipse or use outline detection like in other papers.
+
+\subsection{Sample Predictions}
+
+Figure~\ref{fig:sample_predictions} shows six checked samples---top row is the (resized) image, bottom row the same with true HC, predicted HC, and error in mm. Figure~\ref{fig:sample_fullres} shows three samples at full size. From these one can see where the model tends to make mistakes (e.g.\ very small or large heads, or poor image quality).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{image/sample_predictions.png}
+\caption{Sample predictions: original images (top row) and same images with true HC, predicted HC, and error in mm (bottom row).}
+\label{fig:sample_predictions}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{image/sample_fullres.png}
+\caption{Three samples at full size with true vs.\ predicted head circumference (mm).}
+\label{fig:sample_fullres}
+\end{figure}
+
+\section{Conclusion}
+
+This report described the HC18 dataset and a small network that predicts fetal head circumference from 128$\times$128 gray ultrasound images. The steps: load the CSVs, keep only rows with existing images, split 80/20, scale the images, and train with MSE while watching MAE. A few settings (size, batch, number of passes, dropout) were changed; the error on the check set is around 44--48~mm. That is still far from the few mm achieved by the best HC18 methods, mainly because the model is small, the image size is low, data is limited, and there is no extra data variation. Next steps would be a larger or pre-trained network, higher resolution, more data variation, and possibly methods that fit an ellipse or use outline detection as in other work.
+
+\end{multicols}
+
+\end{document}
