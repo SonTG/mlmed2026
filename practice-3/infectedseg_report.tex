@@ -1,0 +1,125 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{subcaption}
+
+\title{A Study of Infection Segmentation in X-ray Images of COVID-19 Patients}
+\author{Minh Pham Quang - 23BI14296}
+\date{Febuary 1, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+For this study, I built a U-Net model which is combined with Residual Block in the encoder part to generate the segmentation masks of the infected areas in X-ray images of COVID-19 patients \cite{tahir2021localization, tahir2021covidquex, rahman2021enhancement, degerli2021map, chowdhury2020ai}. This model was trained with 2 different loss functions: binary cross-entropy (BCE) and mean squared error (MSE).
+
+\section{Data Analysis}
+The dataset used in this study is the COVID-QU-Ex Dataset. It contains 2913 X-ray images of COVID-19 patients. For data preprocessing, I resized all the images to 256$\times$256 pixels in 1 channel and normalized them to the range [0, 1].
+
+\section{Model}
+Instead of utilizing the original U-Net model like in the previous study, I added Residual Block to the encoder part of the U-Net model, which is expected to improve the ability of extracting features more effectively.
+
+\subsection{U-Net Architecture with Residual Block}
+This U-Net model is a convolutional neural network for fast and precise segmentation of images. The architecture contains two paths: the contraction path (encoder) and the symmetric expanding path (decoder). At the encoder part, the Residual Block is adapted in the down-sampling path in order to mitigate the vanishing gradient problem, whereas the decoder part is the same as the original model.
+
+\subsection{Loss Functions}
+I used 2 loss functions to train the U-Net model: binary cross-entropy (BCE) and mean squared error (MSE). The BCE loss function is defined as:
+
+\begin{equation}
+\text{BCE} = -\frac{1}{N}\sum_{i=1}^{N}[y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]
+\end{equation}
+
+where $y_i$ is the ground truth and $\hat{y}_i$ is the predicted probability.
+
+The MSE loss function is defined as:
+
+\begin{equation}
+\text{MSE} = \frac{1}{N}\sum_{i=1}^{N}(y_i - \hat{y}_i)^2
+\end{equation}
+
+\section{Results}
+
+\subsection{For detecting the infected segmentation masks}
+Observing the loss values of the U-Net model training in 100 epochs with different loss functions, both models showed effective convergence. The model with BCE loss achieved a final validation loss of 0.246, while the MSE loss model achieved 0.040. The training curves are shown in Table 1.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=0.95\columnwidth]{table1_loss_curves.png}
+\end{tabular}
+\caption{Loss values of the U-Net model with Residual Block by different loss functions}
+\label{tab:loss_curves}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+Loss function & MAE & IoU \\
+\hline
+BCE & 4.794 & 0.634 \\
+MSE & 4.915 & 0.629 \\
+\hline
+\end{tabular}
+\caption{MAE and IoU values of the model with different loss functions on the test dataset}
+\label{tab:metrics}
+\end{table}
+
+The evaluation metrics on the test dataset show that both loss functions achieved comparable performance. The BCE loss function achieved slightly better results with MAE of 4.794 and IoU of 0.634, compared to MSE with MAE of 4.915 and IoU of 0.629. These results demonstrate that both loss functions are suitable for this infection segmentation task.
+
+Besides the evaluation metrics, I also visualized the Infected Segmentation of the 181st, 182nd and 184th images of the test dataset inferenced by the U-Net model with different loss functions. The results are shown in Figures~\ref{fig:seg181} to~\ref{fig:seg184}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\columnwidth]{figure1_infected_segmentation_181th.png}
+\caption{Infected Segmentation 181st image of the U-Net model with different loss functions}
+\label{fig:seg181}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\columnwidth]{figure2_infected_segmentation_182th.png}
+\caption{Infected Segmentation 182nd image of the U-Net model with different loss functions}
+\label{fig:seg182}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\columnwidth]{figure3_infected_segmentation_184th.png}
+\caption{Infected Segmentation 184th image of the U-Net model with different loss functions}
+\label{fig:seg184}
+\end{figure}
+
+\begin{thebibliography}{00}
+
+\bibitem{tahir2021localization}
+A.~M.~Tahir, M.~E.~H.~Chowdhury, A.~Khandakar, Y.~Qiblawey, U.~Khurshid, S.~Kiranyaz, N.~Ibtehaz, M.~S.~Rahman, S.~Al-Madeed, S.~Mahmud, M.~Ezeddin, K.~Hameed, and T.~Hamid,
+``COVID-19 Infection Localization and Severity Grading from Chest X-ray Images,''
+\emph{Computers in Biology and Medicine}, vol.~139, p.~105002, 2021.
+
+\bibitem{tahir2021covidquex}
+A.~M.~Tahir, M.~E.~H.~Chowdhury, Y.~Qiblawey, A.~Khandakar, T.~Rahman, S.~Kiranyaz, U.~Khurshid, N.~Ibtehaz, S.~Mahmud, and M.~Ezeddin,
+``COVID-QU-Ex,''
+\emph{Kaggle}, 2021.
+
+\bibitem{rahman2021enhancement}
+T.~Rahman, A.~Khandakar, Y.~Qiblawey, A.~M.~Tahir, S.~Kiranyaz, S.~A.~Kashem, M.~Islam, S.~Al-Maadeed, S.~Zughaier, M.~Khan, and M.~E.~H.~Chowdhury,
+``Exploring the Effect of Image Enhancement Techniques on COVID-19 Detection using Chest X-rays Images,''
+\emph{Computers in Biology and Medicine}, p.~104319, 2021.
+
+\bibitem{degerli2021map}
+A.~Degerli, M.~Ahishali, M.~Yamac, S.~Kiranyaz, M.~E.~H.~Chowdhury, K.~Hameed, T.~Hamid, R.~Mazhar, and M.~Gabbouj,
+``Covid-19 infection map generation and detection from chest X-ray images,''
+\emph{Health Information Science and Systems}, vol.~9, no.~15, 2021.
+
+\bibitem{chowdhury2020ai}
+M.~E.~H.~Chowdhury, T.~Rahman, A.~Khandakar, R.~Mazhar, M.~A.~Kadir, Z.~B.~Mahbub, K.~R.~Islam, M.~S.~Khan, A.~Iqbal, N.~A.~Emadi, M.~B.~I.~Reaz, and M.~T.~Islam,
+``Can AI Help in Screening Viral and COVID-19 Pneumonia?,''
+\emph{IEEE Access}, vol.~8, pp.~132665--132676, 2020.
+
+\end{thebibliography}
+
+\end{document}

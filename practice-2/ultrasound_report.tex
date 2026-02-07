@@ -1,0 +1,112 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{\textbf{A Study of Automated Measurement of Fetal Head Circumference Using 2D Ultrasound Images}}
+\author{Minh Pham Quang - 23BI14296}
+\date{January 25, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+In this assignment, I tried to implement some U-Net models with different loss functions to detect the head boundary in 2D ultrasound images, and then measure the head circumference.
+
+\section{Data Analysis}
+
+The dataset used in this study is the HC18 dataset. The training dataset consists of 999 2D ultrasound images of fetal head and the corresponding ground truth masks, whereas the test dataset consists of 335 2D ultrasound images of fetal head with no labels. For training the model, 80\% of the training dataset will be used for training, 10\% for validation, and 10\% for testing to evaluate the model.
+
+\section{Model}
+
+Instead of building a model for segmentation, I used the U-Net model with different loss functions to generate new images of only the head boundary like the ground truth masks. After that, I utilized some image processing techniques to determine the contour of the head boundary and measure the head circumference.
+
+\subsection{U-Net Architecture}
+
+The U-Net model is a convolutional neural network for fast and precise segmentation of images. The architecture contains two paths: the contraction path (encoder) and the symmetric expanding path (decoder). The encoder is used to capture the context of the input image, while the decoder is used to enable precise localization.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{unet-architecture.png}
+    \caption{U-Net Architecture}
+    \label{fig:unet}
+\end{figure}
+
+\subsection{Loss Functions}
+
+I used two loss functions to train the U-Net model: mean squared error (MSE) and binary cross-entropy (BCE). Firstly, the MSE loss function is used to measure the average of the squares of the errors between the predicted and ground truth masks. Next, I used the BCE loss function to measure the difference between the predicted and ground truth masks.
+
+\begin{equation}
+\text{BCE} = -\frac{1}{N}\sum_{i=1}^{N}[y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]
+\end{equation}
+
+where $y_i$ is the ground truth and $\hat{y}_i$ is the predicted probability.
+
+The MSE loss function is defined as:
+
+\begin{equation}
+\text{MSE} = \frac{1}{N}\sum_{i=1}^{N}(y_i - \hat{y}_i)^2
+\end{equation}
+
+\section{Results}
+
+\subsection{For detecting the head boundary}
+
+Observing the loss values of the U-Net model training in 20 epochs with different loss functions, the model with MSE loss has a decrease in loss value over time, while the BCE model shows different convergence behavior.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{table1_loss_curves.png}
+    \caption{Loss values of the U-Net model with different loss functions. (a) MSE loss, (b) BCE loss.}
+    \label{fig:loss_curves}
+\end{figure}
+
+As can be seen from Table~\ref{tab:test_results}, the U-Net model with MSE loss function has the lowest MAE value, while the model with BCE loss function shows different performance characteristics.
+
+\begin{table}[H]
+    \centering
+    \caption{MAE and IoU values of the U-Net model with different loss functions for test dataset}
+    \label{tab:test_results}
+    \begin{tabular}{@{}lcc@{}}
+        \toprule
+        \textbf{Loss function} & \textbf{MAE} & \textbf{IoU} \\
+        \midrule
+        MSE & 0.0108 & 0.0226 \\
+        BCE & 38.0359 & 0.2237 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Besides the evaluation metrics, I also visualized the head boundary of the 200th, 201st, and 202nd images of the test dataset inferenced by the U-Net model with different loss functions. The results are shown in Figures~\ref{fig:result_200}, \ref{fig:result_201}, and \ref{fig:result_202}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figure2_head_boundary.png}
+    \caption{Head boundary 200th image of the U-Net model with different loss functions}
+    \label{fig:result_200}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figure51_head_boundary.png}
+    \caption{Head boundary 201st image of the U-Net model with different loss functions}
+    \label{fig:result_201}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figure91_head_boundary.png}
+    \caption{Head boundary 202nd image of the U-Net model with different loss functions}
+    \label{fig:result_202}
+\end{figure}
+
+\end{document}

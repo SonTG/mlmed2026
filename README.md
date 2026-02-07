@@ -1,6 +1,5 @@
-USTH Machine Learning in Medicine 2026
-==================================
+# USTH Machine Learning in Medicine 2026
 
-* Your name here
-* Your ID here
-* Your team ID here
+* Full Name: Minh Pham Quang
+* Student ID: 23BI14296
+* Group: 11
