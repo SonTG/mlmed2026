@@ -1,0 +1,122 @@
+\documentclass[twocolumn, 10pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}      
+\usepackage{amsmath}       
+\usepackage{geometry}    
+\usepackage{float}       
+\usepackage{booktabs}     
+\usepackage{caption}        
+\usepackage{hyperref}  
+\usepackage[utf8]{vietnam}
+\usepackage{amsmath}
+
+\geometry{top=2cm, bottom=2cm, left=1.5cm, right=1.5cm, columnsep=0.7cm}
+
+\title{\textbf{Automated Fetal Head Circumference Estimation using ResNet-18 Regression Model}}
+\author{\textbf{Student Name: Mai Ngọc Linh} \\ 
+        \textit{Student ID: 23BI14255} \\
+        \textit{Lab 2: Machine Learning in Medicine}}
+\date{\today}
+
+\begin{document}
+
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+    \begin{abstract}
+      \noindent This report presents a deep learning approach for estimating fetal head circumference (HC) from ultrasound images. Unlike traditional segmentation masks, this implementation treats the task as a regression problem using a modified ResNet-18 architecture. The model is trained to directly predict the HC value in millimeters (mm). Using the HC18 dataset, the model achieved significant error reduction over 15 epochs, as measured by Mean Absolute Error (MAE). Qualitative results show that the model effectively learns to interpret the biometric features of the fetal skull.
+      \vspace{0.5cm}
+    \end{abstract}
+  \end{@twocolumnfalse}
+]
+
+\section{Introduction}
+Fetal head circumference (HC) is a key biometric parameter used to assess fetal growth and gestational age. Manual measurement by clinicians is prone to human error and inter-observer variability. In this lab, we implement an automated system using a Deep Convolutional Neural Network (CNN) to predict HC values directly from 2D ultrasound scans.
+
+\section{Methodology}
+
+\subsection{Dataset and Preprocessing}
+The study uses the \textbf{HC18 challenge dataset}. The preprocessing pipeline includes:
+\begin{itemize}
+    \item \textbf{Resizing:} Images are resized to $224 \times 224$ pixels to satisfy the input requirements of the ResNet-18 architecture.
+    \item \textbf{Normalization:} Pixel values are normalized using ImageNet means ($[0.485, 0.456, 0.406]$) and standard deviations ($[0.229, 0.224, 0.225]$).
+    \item \textbf{Data Loading:} The training set is split into 80\% for training and 20\% for validation.
+\end{itemize}
+
+\subsection{Model Architecture: ResNet-18}
+Instead of a standard U-Net for segmentation, this implementation utilizes \textbf{ResNet-18} as a feature extractor. The final fully connected (FC) layer was modified for Regression:
+\begin{enumerate}
+    \item A Linear layer mapping features to a 512-dimensional space.
+    \item A ReLU activation function.
+    \item A final Linear layer outputting a single continuous value representing the HC in \textbf{mm}.
+\end{enumerate}
+
+\subsection{Training Setup}
+The model was optimized using the following configuration:
+\begin{itemize}
+    \item \textbf{Loss Function:} \texttt{L1Loss} (Mean Absolute Error).
+    \item \textbf{Optimizer:} Adam with a learning rate of $10^{-4}$.
+    \item \textbf{Epochs:} 15.
+\end{itemize}
+
+\section{Experimental Results}
+\subsection{Quantitative Performance}
+The training process was monitored by measuring the average distance error between predictions and ground truth labels in millimeters.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Screenshot 2026-01-27 001944.png}
+    \caption{Training History: The chart shows the Mean Absolute Error (MAE) in mm decreasing across 15 epochs for both training and validation sets.}
+    \label{fig:placeholder}
+\end{figure}
+
+As shown in Figure 1, the MAE consistently drops, indicating that the model successfully learns to map pixel intensity patterns to physical measurements.
+
+\section{Model Evaluation and Error Analysis}
+To further evaluate the performance of the regression model, we analyze the relationship between the actual and predicted head circumference (HC) values, as well as the distribution of residuals.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Screenshot 2026-01-27 083551.png}
+    \caption{Regression Analysis. Left (Plot 1): Actual vs. Predicted HC values (mm). Right (Plot 2): Residual distribution (Error in mm).}
+    \label{fig:placeholder}
+\end{figure}
+
+\subsection{Actual vs. Predicted Analysis}
+As shown in the plot on the left of Figure 2, the predicted values are highly correlated with the ground truth. The data points form a tight cluster along the identity line ($y=x$), indicating that the ResNet-18 model accurately estimates the head circumference in various stages of fetal growth.
+
+\subsection{Residual Distribution}
+The right plot in Figure 2 illustrates the residuals (the difference between actual and predicted values). The errors are centered around \textbf{0 mm} and follow a near-normal distribution. Most errors fall within a narrow range, confirming that the model provides consistent and reliable measurements with minimal systematic bias.
+
+\section{In-depth Prediction Analysis}
+To better understand the model's reliability, we analyze specific samples where the model performed exceptionally well versus cases where it struggled.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{download.png}
+    \caption{Samples with high precision (Best Predictions)}
+    \label{fig:placeholder}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{download (1).png}
+    \caption{Samples with significant deviations (Worst Failures).}
+    \label{fig:placeholder}
+\end{figure}
+
+\subsection{Best Model Predictions}
+As shown in the top row of Figure , the model excels when the fetal head has a clear, high-contrast boundary. In these cases, the predicted mask (Right) almost perfectly overlaps with the ground truth (Center), demonstrating that the ResNet-18 features are highly effective at capturing standard cranial shapes.
+
+\subsection{Worst Model Failures}
+The bottom row illustrates cases where the model's prediction deviates from the expert annotation. Common factors for these failures include:
+\begin{itemize}
+    \item \textbf{Low Contrast:} Weak ultrasound signals make the cranial boundary nearly invisible.
+    \item \textbf{Acoustic Shadowing:} Shadows from fetal limbs or bones obscuring parts of the head.
+    \item \textbf{Atypical Orientation:} Non-standard fetal positions that the model might not have encountered sufficiently during training.
+\end{itemize}
+These failure cases highlight the need for further data augmentation or the inclusion of attention mechanisms to focus on subtle boundary cues.
+
+\section{Conclusion}
+The modified ResNet-18 model proves effective for the automated estimation of fetal head circumference. By minimizing the Mean Absolute Error (MAE) in mm, the system provides a clinically relevant metric. Future improvements could involve integrating an Attention mechanism to better focus on the cranial boundaries in noisy ultrasound images.
+
+\end{document}
